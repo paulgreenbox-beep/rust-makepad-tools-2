@@ -309,12 +309,36 @@ def _registry_lease_count(value,session_id):
                 and type(owner.get('process_birth')) is str
                 and owner['process_birth'].isdigit() and int(owner['process_birth'])>0,bad)
         require(type(entry.get('resources')) is list and bool(entry['resources']),bad)
+        for resource in entry['resources']:
+            if type(resource) is str:
+                require(resource in ('DesktopInput','SystemClipboard','BackgroundCompute'),bad)
+            else:
+                require(type(resource) is dict and len(resource)==1,bad)
+                kind,details=next(iter(resource.items()))
+                require(kind in ('WindowMutation','SessionSemantic') and type(details) is dict,bad)
+                if kind=='SessionSemantic':
+                    require(type(details.get('session_id')) is str and bool(details['session_id']),bad)
+                else:
+                    require(type(details.get('hwnd')) is int and details['hwnd']>0
+                            and type(details.get('pid')) is int and details['pid']>0
+                            and type(details.get('process_birth')) is str
+                            and details['process_birth'].isdigit()
+                            and int(details['process_birth'])>0,bad)
         acquired=entry.get('acquired_at');reservations=entry.get('active_reservations',0)
         clipboard=entry.get('clipboard_pending',False)
-        require(type(reservations) is int and 0<=reservations<=256
-                and type(clipboard) is bool
-                and (acquired is None or type(acquired) is int)
+        queued=entry.get('queued_at');deadline=entry.get('deadline');heartbeat=entry.get('heartbeat')
+        require(all(type(v) is int and v>=0 for v in (queued,deadline,heartbeat))
+                and deadline>queued and heartbeat>=queued
+                and type(reservations) is int and 0<=reservations<=256
+                and type(clipboard) is bool and type(entry.get('logical_background',False)) is bool
+                and (acquired is None or (type(acquired) is int and queued<=acquired<deadline
+                                          and acquired<=heartbeat))
                 and (acquired is not None or (reservations==0 and not clipboard)),bad)
+        require(not (state in ('LEASED','GUI_ACTIVE','QUIESCING','VERIFYING',
+                               'RECOVERING','RESOURCE_QUARANTINED') and acquired is None)
+                and not (state in ('QUEUED','WAITING_RESOURCES','RESUME_QUEUED',
+                                   'BACKGROUND_RUNNING','COMPLETED','CANCELLED',
+                                   'TIMED_OUT','OWNER_LOST') and acquired is not None),bad)
         if owner['session_id']==session_id and (
             state not in ARBITER_TERMINAL or acquired is not None or reservations or clipboard
         ):active+=1
@@ -322,7 +346,8 @@ def _registry_lease_count(value,session_id):
     for event in events:
         require(type(event) is dict and type(event.get('timestamp')) is int
                 and event['timestamp']>=last and type(event.get('request')) is int
-                and 0<event['request']<next_id and event.get('state') in ARBITER_STATES
+                and 0<event['request']<next_id and type(event.get('state')) is str
+                and event['state'] in ARBITER_STATES
                 and type(event.get('reason')) is str and bool(event['reason'].strip()),bad)
         last=event['timestamp']
     return active
