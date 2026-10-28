@@ -48,6 +48,13 @@ class RegistryCleanupTests(unittest.TestCase):
             with self.subTest(state=state):
                 self.write(registry([entry(1,state,acquired=20 if state in ('RECOVERING','RESOURCE_QUARANTINED') else None)]))
                 self.assertEqual(self.observe(),1)
+    def test_foreign_active_lease_is_counted_only_for_its_owner(self):
+        self.write(registry([entry(1,'GUI_ACTIVE','other',acquired=20),entry(2)]))
+        self.assertEqual(self.observe('mine'),0)
+        self.assertEqual(self.observe('other'),1)
+    def test_terminal_generation_without_fence_refuses(self):
+        self.write(registry([entry(1,generation=1)]))
+        with self.assertRaises(storage.StorageRefusal):self.observe()
     def test_terminal_state_with_retained_grant_never_returns_zero(self):
         self.write(registry([entry(1,'COMPLETED',acquired=20)]))
         with self.assertRaises(storage.StorageRefusal):self.observe()
