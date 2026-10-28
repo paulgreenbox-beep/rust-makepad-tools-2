@@ -1,0 +1,11 @@
+{
+  "schema": "toolkit-makepad-remote-trusted-profile-v1",
+  "experimental_opt_in": true,
+  "source_commit": "71c9ddcbb9c01dd208f99621fdd71024a5d35c65",
+  "executable": "C:/approved-apps/makepad-fixture.exe",
+  "executable_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "working_directory": "C:/approved-apps",
+  "owner": "Tools:operator-reviewed-fixture",
+  "hidden": true,
+  "key_focus_probe": true
+}

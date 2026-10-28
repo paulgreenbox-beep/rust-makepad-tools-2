@@ -1,0 +1,9 @@
+/target/
+/reports/
+**/__pycache__/
+*.log
+*.exe
+*.pdb
+*.dpapi
+*.env
+config/local/

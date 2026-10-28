@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.0.0",
+  "consumer_schema_versions": [1],
+  "consumer_policy_versions": ["1.0.0"],
+  "levels": ["L0", "L1", "L2", "L3", "L4a", "L4b", "L5"],
+  "periodic_interval": 5,
+  "budget_defaults": {"focused_new_feature_gui":4,"routine_golden_gui":4,"real_file_gui":2,"frozen_artifact_smoke":1,"typical_gui_runs":10},
+  "ownership_safeguards": ["manifest_is_source_of_truth","agent_requires_plan_before_gui","no_parallel_plugin","no_unit_tests_deleted_for_economy","assertion_count_not_optimized","integration_boundary_not_skipped","new_interactions_require_real_user_gui","scenario_reuse_requires_exact_artifact_and_source_and_complete_pass","unknown_impact_requires_review","scenario_recipe_validation_is_not_gui_acceptance"],
+  "smoke_safeguards": ["after_source_freeze","after_quality_gates","after_required_gui","exact_bytes_required","runtime_health_required"],
+  "outcomes": ["PASS","FAIL_PRODUCT","FAIL_TEST_INFRA","BLOCKED_ENVIRONMENT","NOT_RUN"],
+  "risks": [
+    {"id":"input-focus","feature_tags":["pointer","keyboard","focus"]},
+    {"id":"window-identity","feature_tags":["window"]},
+    {"id":"accessibility-uia","feature_tags":["uia"]},
+    {"id":"semantic-dispatch","feature_tags":["semantic"]},
+    {"id":"shared-runtime","feature_tags":["runtime"]},
+    {"id":"native-clipboard","feature_tags":["clipboard"]},
+    {"id":"document-identity","feature_tags":["save","open"]},
+    {"id":"rendering-layout","feature_tags":["rendering","layout"]},
+    {"id":"gpu-backend","feature_tags":["gpu"]},
+    {"id":"worker-scheduling","feature_tags":["workers"]},
+    {"id":"wslc-lifecycle","feature_tags":["wslc"]},
+    {"id":"cross-platform-portability","feature_tags":["portability"]},
+    {"id":"test-infrastructure","feature_tags":["verification-infrastructure"]},
+    {"id":"unexplained-gui-flake","feature_tags":["unexplained-flake"]}
+  ],
+  "evidence": {"version":2,"required":["project","artifact","source","policy","plan","runtime","setup","steps","teardown","correlation","health","timestamps","cleanup"],"mock_is_real_e2e":false},
+  "resource_guards": {"min_available_physical_ram_mib":2048,"wslc_min_available_ram_mib":2048,"preflight_max_age_seconds":60,"no_unbudgeted_heavy_parallelism":true},
+  "retry": {"BLOCKED_ENVIRONMENT":"only blocked scenario with unchanged verified identities","FAIL_TEST_INFRA":"investigate runner; no automatic PASS","FAIL_PRODUCT":"fix then failing + directly impacted + required closure","unexplained_flake":"investigation; never automatic PASS"}
+}

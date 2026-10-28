@@ -1,0 +1,60 @@
+[package]
+name = "toolkit-windows-automation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "ID-addressed Windows GUI automation, evidence, and MCP tools"
+
+[features]
+default = []
+experimental-makepad-remote = []
+
+[dependencies]
+png = "0.18.1"
+sha2 = "0.10.9"
+base64 = "0.22.1"
+rudra-runtime.workspace = true
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+
+[target.'cfg(windows)'.dependencies]
+
+windows-core = "0.61.2"
+windows = { version = "0.61.3", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Storage_Xps",
+    "Win32_System_Com",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Ole",
+    "Win32_System_Variant",
+    "Win32_System_Threading",
+    "Win32_System_JobObjects",
+    "Win32_System_RemoteDesktop",
+    "Win32_System_DataExchange",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_UI_Accessibility",
+    "Win32_UI_Controls",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+] }
+
+[[bin]]
+name = "toolkit-windows-gui-mcp"
+path = "src/bin/toolkit-windows-gui-mcp.rs"
+
+[[bin]]
+name = "windows-gui-self-test-fixture"
+path = "src/bin/windows-gui-self-test-fixture.rs"
+
+[[bin]]
+name = "windows-gui-self-test"
+path = "src/bin/windows-gui-self-test.rs"
+
+[[bin]]
+name = "windows-accessibility-bridge-smoke"
+path = "src/bin/windows-accessibility-bridge-smoke.rs"

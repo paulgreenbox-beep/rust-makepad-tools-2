@@ -1,0 +1,2 @@
+# Preserve source/notice bytes and their reviewed digests across checkouts.
+* -text

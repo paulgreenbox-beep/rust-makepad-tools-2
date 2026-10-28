@@ -1,0 +1,26 @@
+{
+  "schema": "toolkit-mcp-backend-routing-v1",
+  "source_commit": "71c9ddcbb9c01dd208f99621fdd71024a5d35c65",
+  "evidence_root": "C:/tools/rust-makepad-tools/reports/evidence/owned",
+  "admission_path": "C:/tools/rust-makepad-tools/reports/evidence/admission/runtime-admission.json",
+  "targets": [
+    {
+      "selector": {
+        "process_name": "makepad-fixture.exe"
+      },
+      "profile_path": "C:/tools/rust-makepad-tools/config/local/windows-hidden.json",
+      "profile_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "mode": "windows_hidden",
+      "widgets": [
+        {
+          "automation_id": "fixture.input.primary",
+          "widget_id": "input_singleline",
+          "name": "Approved input",
+          "control_type": "Edit"
+        }
+      ]
+    }
+  ],
+  "uia_allowlist": [],
+  "operator_lifecycle": false
+}

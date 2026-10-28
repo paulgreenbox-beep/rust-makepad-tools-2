@@ -1,0 +1,889 @@
+{
+  "schema": "rust-makepad-tools-source-publication-provenance-v1",
+  "version": "0.2.0",
+  "repository": "https://github.com/paulgreenbox-beep/rust-makepad-tools-2",
+  "distribution": "SOURCE_ONLY",
+  "compiled_candidate_sha256": "3F18B23C75E7FADDEF80B4EB1E431BCFA697359A7679732E7A5EAD025B763180",
+  "compiled_source_manifest_sha256": "1C549F7BF500D5618E62FCFB019C420A29E8CADBC93D23FF93F4CFBFC52CE05C",
+  "compiled_build_receipt_sha256": "DFFB740A694F6721D8762DB355640EF72B217CA239269C3BDEB10B9CA58B04EE",
+  "compiled_input_file_count": 210,
+  "frozen_source_hashes": [
+    {
+      "path": ".gitattributes",
+      "sha256": "7C8E989B73DE2F9724A8DE732697A204CE56F0E420AB0D74B82DAC1387DD20BE"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "826F5BEF1731EC331829A463A8C5954EFAA8B711A508D3825FA4C56B589D7E3A"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "4FBAD8628B319DCBE30A394977CCFC013DFAF31D16902C9A7A94ADA22E4304EB"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "06FB635EF431F03D3B3CCC2C864282A8FB4985A229FF94A64B241374CA8FEDA5"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "849DCD0C2607803813C665CA233E0DCF4BA8C245E53447E61228BDDE67409D3F"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "1FE925F7F3DC7A88C405D2D1BB18DC8AEB187C0E4CDF0B96420BD77553AA77DF"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "1CFC3DF1687D005AAD6DEC7AFD9FB76D0A6C933F7B0DB41912A2382F02927803"
+    },
+    {
+      "path": "LICENSES/Makepad-MIT.txt",
+      "sha256": "3855D73A873244EC424AC5781D5D8FC8E2A789FF9D2F1CB804BEC585A64EA88F"
+    },
+    {
+      "path": "LICENSES/dependencies/adler2-2.0.1/LICENSE-0BSD",
+      "sha256": "861399F8C21C042B110517E76DC6B63A2B334276C8CF17412FC3C8908CA8DC17"
+    },
+    {
+      "path": "LICENSES/dependencies/adler2-2.0.1/LICENSE-APACHE",
+      "sha256": "8ADA45CD9F843ACF64E4722AE262C622A2B3B3007C7310EF36AC1061A30F6ADB"
+    },
+    {
+      "path": "LICENSES/dependencies/adler2-2.0.1/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/base64-0.22.1/LICENSE-APACHE",
+      "sha256": "A60EEA817514531668D7E00765731449FE14D059D3249E0BC93B36DE45F759F2"
+    },
+    {
+      "path": "LICENSES/dependencies/base64-0.22.1/LICENSE-MIT",
+      "sha256": "0DD882E53DE11566D50F8E8E2D5A651BCF3FABEE4987D70F306233CF39094BA7"
+    },
+    {
+      "path": "LICENSES/dependencies/bitflags-2.13.1/LICENSE-APACHE",
+      "sha256": "A60EEA817514531668D7E00765731449FE14D059D3249E0BC93B36DE45F759F2"
+    },
+    {
+      "path": "LICENSES/dependencies/bitflags-2.13.1/LICENSE-MIT",
+      "sha256": "6485B8ED310D3F0340BF1AD1F47645069CE4069DCC6BB46C7D5C6FAF41DE1FDB"
+    },
+    {
+      "path": "LICENSES/dependencies/block-buffer-0.10.4/LICENSE-APACHE",
+      "sha256": "A9040321C3712D8FD0B09CF52B17445DE04A23A10165049AE187CD39E5C86BE5"
+    },
+    {
+      "path": "LICENSES/dependencies/block-buffer-0.10.4/LICENSE-MIT",
+      "sha256": "D5C22AA3118D240E877AD41C5D9FA232F9C77D757D4AAC0C2F943AFC0A95E0EF"
+    },
+    {
+      "path": "LICENSES/dependencies/cfg-if-1.0.4/LICENSE-APACHE",
+      "sha256": "A60EEA817514531668D7E00765731449FE14D059D3249E0BC93B36DE45F759F2"
+    },
+    {
+      "path": "LICENSES/dependencies/cfg-if-1.0.4/LICENSE-MIT",
+      "sha256": "378F5840B258E2779C39418F3F2D7B2BA96F1C7917DD6BE0713F88305DBDA397"
+    },
+    {
+      "path": "LICENSES/dependencies/cpufeatures-0.2.17/LICENSE-APACHE",
+      "sha256": "A9040321C3712D8FD0B09CF52B17445DE04A23A10165049AE187CD39E5C86BE5"
+    },
+    {
+      "path": "LICENSES/dependencies/cpufeatures-0.2.17/LICENSE-MIT",
+      "sha256": "AE9BAA7BEEA910273C2F384C2A6B721FB7BD02BDA3436074A1072E4EE689F985"
+    },
+    {
+      "path": "LICENSES/dependencies/crc32fast-1.5.0/LICENSE-APACHE",
+      "sha256": "C6596EB7BE8581C18BE736C846FB9173B69ECCF6EF94C5135893EC56BD92BA08"
+    },
+    {
+      "path": "LICENSES/dependencies/crc32fast-1.5.0/LICENSE-MIT",
+      "sha256": "61D383B05B87D78F94D2937E2580CCE47226D17823C0430FBCAD09596537EFCF"
+    },
+    {
+      "path": "LICENSES/dependencies/crypto-common-0.1.7/LICENSE-APACHE",
+      "sha256": "A9040321C3712D8FD0B09CF52B17445DE04A23A10165049AE187CD39E5C86BE5"
+    },
+    {
+      "path": "LICENSES/dependencies/crypto-common-0.1.7/LICENSE-MIT",
+      "sha256": "3521672491A3479422D5FE1ACA6645DD2984090F85DA6E5205ABFB18FB7A6897"
+    },
+    {
+      "path": "LICENSES/dependencies/digest-0.10.7/LICENSE-APACHE",
+      "sha256": "A9040321C3712D8FD0B09CF52B17445DE04A23A10165049AE187CD39E5C86BE5"
+    },
+    {
+      "path": "LICENSES/dependencies/digest-0.10.7/LICENSE-MIT",
+      "sha256": "9E0DFD2DD4173A530E238CB6ADB37AA78C34C6BC7444E0E10C1AB5D8881F63BA"
+    },
+    {
+      "path": "LICENSES/dependencies/fdeflate-0.3.7/LICENSE-APACHE",
+      "sha256": "0D542E0C8804E39AA7F37EB00DA5A762149DC682D7829451287E11B938E94594"
+    },
+    {
+      "path": "LICENSES/dependencies/fdeflate-0.3.7/LICENSE-MIT",
+      "sha256": "C77A4CF9DA729987D0FE7CCD811E3BD27393914DDF3D23467C18CC22954513B3"
+    },
+    {
+      "path": "LICENSES/dependencies/flate2-1.1.9/LICENSE-APACHE",
+      "sha256": "A60EEA817514531668D7E00765731449FE14D059D3249E0BC93B36DE45F759F2"
+    },
+    {
+      "path": "LICENSES/dependencies/flate2-1.1.9/LICENSE-MIT",
+      "sha256": "025436EDFF4CFCDDE17A5811FDEA78892D8482EFD1ABDEC5A17872D07A4F2112"
+    },
+    {
+      "path": "LICENSES/dependencies/generic-array-0.14.7/LICENSE",
+      "sha256": "C09AAE9D3C77B531F56351A9947BC7446511D6B025B3255312D3E3442A9A7583"
+    },
+    {
+      "path": "LICENSES/dependencies/itoa-1.0.18/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/itoa-1.0.18/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/libc-0.2.189/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/libc-0.2.189/LICENSE-MIT",
+      "sha256": "123A331B5DBF04C30097FA43B8F858BC85DF671FE776DE498D01F3D6B7C1F69E"
+    },
+    {
+      "path": "LICENSES/dependencies/memchr-2.8.3/COPYING",
+      "sha256": "01C266BCED4A434DA0051174D6BEE16A4C82CF634E2679B6155D40D75012390F"
+    },
+    {
+      "path": "LICENSES/dependencies/memchr-2.8.3/LICENSE-MIT",
+      "sha256": "0F96A83840E146E43C0EC96A22EC1F392E0680E6C1226E6F3BA87E0740AF850F"
+    },
+    {
+      "path": "LICENSES/dependencies/memchr-2.8.3/UNLICENSE",
+      "sha256": "7E12E5DF4BAE12CB21581BA157CED20E1986A0508DD10D0E8A4AB9A4CF94E85C"
+    },
+    {
+      "path": "LICENSES/dependencies/miniz_oxide-0.8.9/LICENSE",
+      "sha256": "4108245A1F2DF9D4E94DF8ABED5B4BA0759BB2F9B40A6B939F1BE141077AE50B"
+    },
+    {
+      "path": "LICENSES/dependencies/miniz_oxide-0.8.9/LICENSE-APACHE.md",
+      "sha256": "0D542E0C8804E39AA7F37EB00DA5A762149DC682D7829451287E11B938E94594"
+    },
+    {
+      "path": "LICENSES/dependencies/miniz_oxide-0.8.9/LICENSE-MIT.md",
+      "sha256": "799E9CA9D179295EF372F25D3769CDDA7D25BB2668ADD6A6A1E22D1E4C678B8D"
+    },
+    {
+      "path": "LICENSES/dependencies/miniz_oxide-0.8.9/LICENSE-ZLIB.md",
+      "sha256": "0A54E647FE54104658B5E563C04C6F9EDF251710E47BCE692E0BD990A4DDAA39"
+    },
+    {
+      "path": "LICENSES/dependencies/png-0.18.1/LICENSE-APACHE",
+      "sha256": "A60EEA817514531668D7E00765731449FE14D059D3249E0BC93B36DE45F759F2"
+    },
+    {
+      "path": "LICENSES/dependencies/png-0.18.1/LICENSE-MIT",
+      "sha256": "EAF40297C75DA471F7CDA1F3458E8D91B4B2EC866E609527A13ACFA93B638652"
+    },
+    {
+      "path": "LICENSES/dependencies/proc-macro2-1.0.107/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/proc-macro2-1.0.107/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/quote-1.0.47/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/quote-1.0.47/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/serde-1.0.229/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/serde-1.0.229/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/serde_core-1.0.229/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/serde_core-1.0.229/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/serde_derive-1.0.229/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/serde_derive-1.0.229/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/serde_json-1.0.151/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/serde_json-1.0.151/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/sha2-0.10.9/LICENSE-APACHE",
+      "sha256": "A9040321C3712D8FD0B09CF52B17445DE04A23A10165049AE187CD39E5C86BE5"
+    },
+    {
+      "path": "LICENSES/dependencies/sha2-0.10.9/LICENSE-MIT",
+      "sha256": "B4EB00DF6E2A4D22518FCAA6A2B4646F249B3A3C9814509B22BD2091F1392FF1"
+    },
+    {
+      "path": "LICENSES/dependencies/simd-adler32-0.3.10/LICENSE.md",
+      "sha256": "42A35170233E83E18856792E748DE4C1CE4A63B2AFCE9A370C89EF3FE23F9F2D"
+    },
+    {
+      "path": "LICENSES/dependencies/syn-2.0.119/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/syn-2.0.119/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/syn-3.0.3/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/syn-3.0.3/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/typenum-1.20.1/LICENSE",
+      "sha256": "DB11FEC9946737DF39CA3898D9CD8C10EC6F6C3A884A6802B0AD0B81B4E8F23A"
+    },
+    {
+      "path": "LICENSES/dependencies/typenum-1.20.1/LICENSE-APACHE",
+      "sha256": "516B24E051BF5630880EBBD55C40A25CE9552EBAF8970A53E8976EB70E522406"
+    },
+    {
+      "path": "LICENSES/dependencies/typenum-1.20.1/LICENSE-MIT",
+      "sha256": "A825BD853AB71619A4923D7B4311221427848070FF44D990DA39B0B274C1683F"
+    },
+    {
+      "path": "LICENSES/dependencies/unicode-ident-1.0.24/LICENSE-APACHE",
+      "sha256": "62C7A1E35F56406896D7AA7CA52D0CC0D272AC022B5D2796E7D6905DB8A3636A"
+    },
+    {
+      "path": "LICENSES/dependencies/unicode-ident-1.0.24/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "LICENSES/dependencies/unicode-ident-1.0.24/LICENSE-UNICODE",
+      "sha256": "F7DB81051789B729FEA528A63EC4C938FDCB93D9D61D97DC8CC2E9DF6D47F2A1"
+    },
+    {
+      "path": "LICENSES/dependencies/version_check-0.9.5/LICENSE-APACHE",
+      "sha256": "A60EEA817514531668D7E00765731449FE14D059D3249E0BC93B36DE45F759F2"
+    },
+    {
+      "path": "LICENSES/dependencies/version_check-0.9.5/LICENSE-MIT",
+      "sha256": "B7E650F3FCE5C53249D1CDC608B54DF156A97EDD636CF9D23498D0CFE7AEC63E"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-0.61.3/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-0.61.3/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-collections-0.2.0/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-collections-0.2.0/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-core-0.61.2/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-core-0.61.2/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-future-0.2.1/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-future-0.2.1/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-implement-0.60.2/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-implement-0.60.2/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-interface-0.59.3/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-interface-0.59.3/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-link-0.1.3/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-link-0.1.3/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-numerics-0.2.0/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-numerics-0.2.0/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-result-0.3.4/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-result-0.3.4/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-strings-0.4.2/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-strings-0.4.2/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-threading-0.1.0/license-apache-2.0",
+      "sha256": "C16F8DCF1A368B83BE78D826EA23DE4079FE1B4469A0AB9EE20563F37FF3D44B"
+    },
+    {
+      "path": "LICENSES/dependencies/windows-threading-0.1.0/license-mit",
+      "sha256": "C2CFCCB812FE482101A8F04597DFC5A9991A6B2748266C47AC91B6A5AAE15383"
+    },
+    {
+      "path": "LICENSES/dependencies/zmij-1.0.23/LICENSE-MIT",
+      "sha256": "23F18E03DC49DF91622FE2A76176497404E46CED8A715D9D2B67A7446571CCA3"
+    },
+    {
+      "path": "README.md",
+      "sha256": "3AE826ACB784389075A2FA780B44BCBA94241D7F1450BB92E7068A8FB7A85B2D"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "A9F9B3440F57473405E3A51F1A050BDD1C58CB0DD395BF9C9DF3F6FA8E0B04AB"
+    },
+    {
+      "path": "config/codex-readonly.example.toml",
+      "sha256": "025C215A3B076F2D9484C113935F2722A29C31488FBBA286540B02CA04630505"
+    },
+    {
+      "path": "config/routing.template.json",
+      "sha256": "1D515B079BA1C69BCEA9D0089DE721FFA69F78D5CF90CD280C3CA9162A3A8602"
+    },
+    {
+      "path": "config/windows-hidden-profile.template.json",
+      "sha256": "35FF476A8FAA89390A05BEE334382284529D402DFC69820040431EACE302C8FF"
+    },
+    {
+      "path": "config/wslc-profile.template.json",
+      "sha256": "F9211845A6982AF5ACBE776C323DA9D54B5299FA8B94ED912A85FB3C7E534D39"
+    },
+    {
+      "path": "crates/rudra-runtime/Cargo.toml",
+      "sha256": "7397BAD8A2A10AF876DCBC6C6E601FD0E221F4205871CE5B4B0E847AB65B5ACB"
+    },
+    {
+      "path": "crates/rudra-runtime/src/lib.rs",
+      "sha256": "02BAD34996F6A2EE9E61DE385ED6E545D25BEE047FE32321299697C43795C1D0"
+    },
+    {
+      "path": "crates/rudra-runtime/tests/generic_entities.rs",
+      "sha256": "3B4636446400B4726060DDE9B625E42948F743A8A73F659A871AE92509A70087"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/Cargo.toml",
+      "sha256": "B7497665F04142D88549787D28621964E5EC02E193C3C63DD62AF988F94892DB"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/accessibility.rs",
+      "sha256": "30EE979469C35A63D73CC738AAF04EDE27F18AF7E47C8CB92A695890A2E56A98"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/bin/toolkit-windows-gui-mcp.rs",
+      "sha256": "379E8ABF2280FF27BD63EB31A8C357D4C4464F7519A05A9A4C2F637F6B071812"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/bin/windows-accessibility-bridge-smoke.rs",
+      "sha256": "95DCEE0B685C486C41612D722A6328EEE4E71E69AE86D18A34878106B498062B"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/bin/windows-accessibility-bridge-smoke/consumer.rs",
+      "sha256": "CF4FFBFA453C84FC253741A35C5ED167AB4289AFEB96C247C2A1FEEF85054EB0"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/bin/windows-gui-self-test-fixture.rs",
+      "sha256": "6261DD1405841829D2318156998D797268DF327DE4C0F9116656CB35267007B4"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/bin/windows-gui-self-test.rs",
+      "sha256": "A661E1FBE1ED3BCFA98CD70A40C64B560A7735230AB111B79DA64ED8DCEE290A"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/capture_geometry.rs",
+      "sha256": "C9ED0E055091F084F5866186A0345FD3E1FDA82ECC639B31E245DDB7C5C7995C"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/contract.rs",
+      "sha256": "B23D51B7547DB357803FED9DFDC3041618FC40322DFD6326CBED0EE44E563C76"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/desktop_arbiter.rs",
+      "sha256": "ED2074C7272D58812F7524790CA24435969AD8B0219E04331822F7A85EABF9A9"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/desktop_arbiter/model.rs",
+      "sha256": "8FC589555CCA0E74EDF2669F119C74339F00FFA7CAAB5122664B18839467D9D4"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/desktop_arbiter/model_tests.rs",
+      "sha256": "BDAE20D61238377D3CE719E8CEBE904772B9F4970A1743CD06155EFBEBB9FC98"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/desktop_arbiter/native.rs",
+      "sha256": "C9E52A81F4476344C7A2FF259570D570689DA366143DE94BD32CA1E1AC77D0B0"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/evidence.rs",
+      "sha256": "ACBC8988BBAB29DF8BB79C1AB1882F881984F4C97D95063263C96118A348E821"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/frame_delta.rs",
+      "sha256": "1212C129CB7AB72F4BDF2ACDF387D290A13CBB36FCB520132A29D349469487CF"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/identity.rs",
+      "sha256": "6E3F930C8B403EBF08E13A37A2865E51F37BAA3F0AC7CF4631654973BB5B67CE"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/lib.rs",
+      "sha256": "C54E4372A7D8F70C89F7534DDAA587A73270003B472276A0BF5D2324C7141541"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/adapter_tests.rs",
+      "sha256": "4F287D875307F5644DFEF86D8F531002BD06DA64699CCAFB18AFD94AA0758341"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/focus_probe.rs",
+      "sha256": "18AD304DE3922EDF9B58D92009B865DC837462760E15505B136EF434F3F3748B"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/http.rs",
+      "sha256": "E021F595EAB1B2B88EF133EDC96F2B3612C06B143AC5DAE9688203560E3EF27F"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/mcp_router.rs",
+      "sha256": "B2BEF3C26249425118D4859C670AEE262A0DDE201480AC93F6EAAA703EC8A82F"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/mcp_router/tests.rs",
+      "sha256": "266C3EB38D1A45EE5BA95EFCB7A8D01D93B1135C85F12F2DADDF27E36CF5A0E2"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/mod.rs",
+      "sha256": "ADBE340BB20DAA21507F47900B6A97835E18C68CA74196913D549CA6CACDFDAA"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/native_frame.rs",
+      "sha256": "CB1C050A19F792BC492D60CDEB6DAF4E3C4D4E6AC43222EA4705FCCB5A82A1CF"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/protocol.rs",
+      "sha256": "06313E733A10080BBAE8C12EE9D27578ECF64B38E3E0ADCFE2E3FE78A0D1B688"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/semantic.rs",
+      "sha256": "4E826C7D5A00481D7C9AD6CF256D1BAC5EA6C38149D8FE58C64102249744AD2F"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/semantic/tests.rs",
+      "sha256": "8D27218364CC13B5D7AFCAF86DE0AEE50609E73DB078B35462A705D4D0429C3F"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/test_wslc_geometry.py",
+      "sha256": "D31A9176CD2857446AA7D2DF10A77DD7A0AEF3F36300B2D0A84B5F2AD9BD1701"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/test_wslc_host.py",
+      "sha256": "7643E3FA7D25EC106DFEFB66DC33C39340553405D14FBB5D3248E34490DDA463"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/test_wslc_host_native.py",
+      "sha256": "5E0D6667080B92E78D8DBE65FD10A7B43FAFAE941CB401C1AE4D401006E36F1B"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/windows.rs",
+      "sha256": "AB4A7212F3CDD4AE6A37371C4E4DEEC06909917E0CB6020B686911FC1BD33F27"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/wslc.rs",
+      "sha256": "7965F4BA6EBC7BF5463C8D8AB18CF90F2C5B3F0EFF01E7DE45E63FFA75AC19F0"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/wslc_host.py",
+      "sha256": "D5631DF9F6EA6B7C7E2D1E85B0DC8298B412F9529E390C269E7DE06BE234E443"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/wslc_identity.rs",
+      "sha256": "75AB85B48CCBB7A0295B30A6914D374747B7B51249C700B55A2262FF843B535D"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/makepad_remote/wslc_pipe.rs",
+      "sha256": "26ECA99A0E011406AE3ADE8BBA9EA025A9912C1083091A62ECE5C973AAAD2FAA"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/mcp.rs",
+      "sha256": "8DA78930C8F6DF1F875C39D629D817A77A67B65EC6D17F8BE39D615E78209DAB"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/mcp/http.rs",
+      "sha256": "D42B75BA70FFA11CD2A93C43D576406B14352A8A1DC3CAF10ABE6F6B74D28690"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/mcp/http/incremental.rs",
+      "sha256": "F5C24F6E5D696FEC7E9FB5B79351AB7F1019D3EC351824F94EBB0AE4AC7FEFAE"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/mcp/http/wire.rs",
+      "sha256": "8CF9D628E045FAE4A90A409CB9494AD8EF941569F078D6F0A6A48D7F9D5FD251"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/owned_process.rs",
+      "sha256": "9AFFAAC0770699F53B873AC788F8F062D6E058233D359D38236D80FD5D39613F"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/platform/accessibility_windows.rs",
+      "sha256": "6B4257A35A8E77064EEB9949594D85E542D0FFBB42CE6E496AF594189F8E389E"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/platform/accessibility_windows/nullable_abi.rs",
+      "sha256": "FAF0DAEDDBE78C2165B2C947AC6B6C96ADCA658A862E1A0B3CBA7E9318C8340C"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/platform/arbiter_guard.rs",
+      "sha256": "BE06FC002AC1C57357E8506A59B20DEC03A132DC481658C1E2A4A2E38CF3866A"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/platform/mod.rs",
+      "sha256": "3CF25C00496B8B8E42619586C9782C14DA29FFE6F36D63C3477B65ABE41CD1ED"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/platform/stub.rs",
+      "sha256": "E7FC01D56D35C4A45603FB7FCB6458A7ADE61F8F883C7C7D5B2C3CC653FEA789"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/platform/windows_backend.rs",
+      "sha256": "DD9738477CFD4DA8D8D73D6C206E384ACB2310FEB57541E6A5C0F34BC7ACE135"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/request_control.rs",
+      "sha256": "AA13DEC7FC2FF3887EE4739592FBFB6195C6A36700F3F99930A705010ABD66EA"
+    },
+    {
+      "path": "crates/toolkit-windows-automation/src/tool_registry.rs",
+      "sha256": "68B160689226E98067A8937548B6549E8AABBC0E1E3C400418B68109FB899402"
+    },
+    {
+      "path": "docs/APP_SEMANTICS.md",
+      "sha256": "59F6E5D24600700BDFE326BF8A61205C6149F2AB3D4FD5AFC5450D8BCBED388C"
+    },
+    {
+      "path": "docs/KNOWN_LIMITATIONS.md",
+      "sha256": "3125311CDD137165BB258DDD1F9DDCEA1EFA17C65AE0B04973925410D3B6E1FE"
+    },
+    {
+      "path": "docs/dependency-licenses.json",
+      "sha256": "D21E832E1F0472C9F860F8E830770ED68A7C9658C55146576220E9C4A8E95811"
+    },
+    {
+      "path": "docs/tools.json",
+      "sha256": "E65E3B13532925F2189CE25A678FBA10A67C39AA5A7E0CB9C701129CB5751A49"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/bootstrap-runtime.ps1",
+      "sha256": "63F7E043AA22ECBEC1173F510D47B4D326B419C506E290C6BE73D3AE8D8CA46F"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/capture-process.ps1",
+      "sha256": "AD4A3936BCB76B15EB4028C6E3755488D204590EBB10FCCA08462A76BB844BDF"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/cleanup-runtime.ps1",
+      "sha256": "D38360B486FA0E056AD7067A86EEB42B0C64104324822B727BB8FEB0969A982C"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/gpu-policy.ps1",
+      "sha256": "77275CD726D3CC08CA1AF562DEEE647AA2FF630F23B550842D90420007AB7DBE"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/gpu-profiles.json",
+      "sha256": "DE67012FFB57367D70B3BBB164F5DA1E65690AB089CC42759E5C4C1FC20404C4"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/gpu_policy.py",
+      "sha256": "25AE566032D2A0C0ED3385A8DA7975BD5756EB3EB2A1E16FE7CFAB9B2009831A"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/manager.py",
+      "sha256": "F47459249EAA1C26C0AD5DD5B9D28EEAF582D1B5E855A89174C805698C7FA8E0"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/module-shell-profile.py",
+      "sha256": "8B61B9ED3FD2B5F37D171E3B682D6F0DDF4776C0B2619AEDFA14ECB6C6FA0913"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/native-inventory.ps1",
+      "sha256": "DCE58E2BCC266F73C9AAB292D72082F94C86E784C3F5ACECF53BA72AA34E919B"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/owned_driver.py",
+      "sha256": "CFD4B2134E4569095CCF7A43C6CE6F869EF40E911D90C95AC3F15B0EBCC0399A"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/preflight.ps1",
+      "sha256": "32F68A99816B39F29A1489381454BABA499A6151DB7EDFE443027F11DE92ABD5"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/stdio-relay.ps1",
+      "sha256": "CCAB7D03A3446CE06E8637B98536232CEB84646A18CA33D07B2DB4ACA3D4E0F5"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/storage-policy.json",
+      "sha256": "F9DA3E235D5380FA3167DF009AF8D18CE0D8DABB09D9CFC995FD42DD1C3431A7"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/storage_policy.py",
+      "sha256": "5D5B4CFAF56CD046C987AE9921BF61C5BED866BB6D26191069A069DFE91CA5D7"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_bootstrap_remote_contract.py",
+      "sha256": "71973580A36F7F68036696F516AF9362ECD1452D1A0EA80E793CAAF4770FDA2D"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_gpu_policy.py",
+      "sha256": "BC9E07B769D5E854A126F2764BA2C4B13E8AE990ECD22BD3ECC15FA41B7EF0F3"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_manager.py",
+      "sha256": "3E1510BF7D168E76DC9B39CD980E595123C22E8746001A361F1BBF34FB8EA00C"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_module_shell_profile.py",
+      "sha256": "1163B694C397F3CC7799154C25596CDAAA91EF2A058BC62164BF28AB0F71BC40"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_owned_driver_contract.py",
+      "sha256": "5B775B1435ED5DCB582EFF49269A99C83579131C111759983CC98A4C995BCD64"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_storage_policy.py",
+      "sha256": "9E058665CCDF4E9BF06067D806EEEBD70065F158B710C008CD32E8AEAA048A67"
+    },
+    {
+      "path": "experiments/ai-execution-workspace/upload-artifact.ps1",
+      "sha256": "9D58AA2BF1D354CF96DBD67F295179DED0F2BCFC1E699DCEF974210AC056600A"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "sha256": "4818490F61F2EC23174F8F702884462D3348EA5B9779506268657807EACAF59D"
+    },
+    {
+      "path": "verification-economy/core/executable-provenance.mjs",
+      "sha256": "38C9174DE596868FFE10738D8B306DC13B9F13BBD03C0DF95ED369C04499190B"
+    },
+    {
+      "path": "verification-economy/core/global-policy.json",
+      "sha256": "22CD3A42953866A6F9B8D11C6C6BED45B37F2B1654DA7CAA571C699DC5331696"
+    },
+    {
+      "path": "verification-economy/core/global-policy.mjs",
+      "sha256": "E2CCF6602B1E6EEF0C41D2A0B473EE408C2FD8E3321EC7F861764F0208D76BFF"
+    },
+    {
+      "path": "verification-economy/core/index.mjs",
+      "sha256": "FF9D8E7600764D9560BCBA9A600E53C910CE8A13C885D6D1F6FF796481E09D9E"
+    },
+    {
+      "path": "verification-economy/core/verification-policy.mjs",
+      "sha256": "6C6753ED3AADBF208C726B126EB11C356246D0CDE0174A1476AC9FECD66146DC"
+    },
+    {
+      "path": "verification-economy/core/verification-run-envelope.mjs",
+      "sha256": "A516C9D0515939EB5A3307F3A218385B267B6CDEEE745CF1DC642FDFE818BF02"
+    },
+    {
+      "path": "verification-economy/profiles/gpu-rendering/verification/scenarios/bounded-nvidia-runtime.aiui.json",
+      "sha256": "40D1A19E23D5131C8C5BC1DB39BD64CDF095AAE2FC331993C63F50D6EA37E8D1"
+    },
+    {
+      "path": "verification-economy/profiles/gpu-rendering/verification/scenarios/frozen-smoke.aiui.json",
+      "sha256": "D3495554B6212F3915F6C2594526446210BE022BA2C2DB76DD1EA75F233784BC"
+    },
+    {
+      "path": "verification-economy/profiles/gpu-rendering/verification/toolkit-core.json",
+      "sha256": "33D64388DD9CD61DA1FCBA7572365CB8AE8DB11726BAE0C0D33AE3511F32A51C"
+    },
+    {
+      "path": "verification-economy/profiles/gpu-rendering/verification/verification-policy.json",
+      "sha256": "FE5E6BECD4E5917FA925D97AAD09788ECD264D86A591562C5C453AC0DE5B741D"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-linux-wslc/verification/scenarios/bounded-nvidia-runtime.aiui.json",
+      "sha256": "40D1A19E23D5131C8C5BC1DB39BD64CDF095AAE2FC331993C63F50D6EA37E8D1"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-linux-wslc/verification/scenarios/frozen-smoke.aiui.json",
+      "sha256": "D3495554B6212F3915F6C2594526446210BE022BA2C2DB76DD1EA75F233784BC"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-linux-wslc/verification/toolkit-core.json",
+      "sha256": "C7DFCB30B444A92FA4B79BA82398B7447F946FABB34865A87261BF84BD088F0A"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-linux-wslc/verification/verification-policy.json",
+      "sha256": "A2540074F2104F365312CD74B8BA05ED0E3783F59DDECB9568F6716372A69786"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-semantic/verification/scenarios/focused-semantic.aiui.json",
+      "sha256": "DF230E0A47BFF13436013140081D8B570AA764D6855918DC3AA74EF113A55E30"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-semantic/verification/scenarios/frozen-smoke.aiui.json",
+      "sha256": "D3495554B6212F3915F6C2594526446210BE022BA2C2DB76DD1EA75F233784BC"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-semantic/verification/scenarios/semantic-ui-composition.aiui.json",
+      "sha256": "1844BFF11C39F5720720B2E923F1FBEA25AB3D78E6591488D07DD0B34F48BA02"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-semantic/verification/toolkit-core.json",
+      "sha256": "4FAFBFE1C049A6EB63739ACCD5D8EA88CC7C2FE839EE03375D9009E75B7FDCC4"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-semantic/verification/verification-policy.json",
+      "sha256": "B8471EF9AF2774BBABF4B4285EBE4F209B2131E9173AFDB9735D68DC2C0CDCBF"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-windows/verification/scenarios/focused-window.aiui.json",
+      "sha256": "BD378652476E044D4C568866AF6A9B22D575F59479416CB4073D851F16412ECF"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-windows/verification/scenarios/frozen-smoke.aiui.json",
+      "sha256": "D3495554B6212F3915F6C2594526446210BE022BA2C2DB76DD1EA75F233784BC"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-windows/verification/scenarios/windows-ui-composition.aiui.json",
+      "sha256": "5B59760953F6239F227EDA0A9408529A6FFCF9BFE755CEA4D7E15C5BD03171BF"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-windows/verification/toolkit-core.json",
+      "sha256": "B1D2E62C5D29007A4F04503B0216F3D6C6B0AB86D3B5F00752165C521A9AA826"
+    },
+    {
+      "path": "verification-economy/profiles/makepad-windows/verification/verification-policy.json",
+      "sha256": "E58F61E637FC2337D929C1E01058946432B919FE65072BDD3DED3E9CC995B0B8"
+    },
+    {
+      "path": "verification-economy/profiles/scheduler-workers/verification/scenarios/focused-worker.aiui.json",
+      "sha256": "F607274467E5F2EA5868A88A72DF8C1D9E9F5728A777FD9B706441AB147B1F4E"
+    },
+    {
+      "path": "verification-economy/profiles/scheduler-workers/verification/scenarios/frozen-smoke.aiui.json",
+      "sha256": "D3495554B6212F3915F6C2594526446210BE022BA2C2DB76DD1EA75F233784BC"
+    },
+    {
+      "path": "verification-economy/profiles/scheduler-workers/verification/scenarios/workers-composition.aiui.json",
+      "sha256": "62A59FF0CEEF1745194AA0F860684689AA6A7E06AD0EA7C8C02140EDA53E913F"
+    },
+    {
+      "path": "verification-economy/profiles/scheduler-workers/verification/toolkit-core.json",
+      "sha256": "6DBBE4A409C84DECCDDA65F3AFFA23FAD5124FCB47EC9B54A0FA449CFCCF556D"
+    },
+    {
+      "path": "verification-economy/profiles/scheduler-workers/verification/verification-policy.json",
+      "sha256": "8B429F13F6258B609E949471D3A95993193948CC3B3FD28C26D1F16D3A015023"
+    },
+    {
+      "path": "verification-economy/tests/core.test.mjs",
+      "sha256": "FB68906AF5A3B4D273820B4343F53453F3C7B012CAE76BDF80D62EBAA4B4B39D"
+    },
+    {
+      "path": "verification-economy/tests/identity-capture.test.mjs",
+      "sha256": "612A52A0EA5109944A1D237ADD08791341258FC65EF16F984A762CD00098E696"
+    },
+    {
+      "path": "verification-economy/tests/wslc-executable-provenance.test.mjs",
+      "sha256": "C4FE56DB15FC6CB34DEF7F947DE251079118E8BCEF10A2F9F4E9293214BF08CD"
+    }
+  ],
+  "original_compiled_source_root_not_distributed": true,
+  "unchanged_implementation_code": false,
+  "documentation_and_CI_overlay": [
+    ".github/workflows/ci.yml",
+    "CHANGELOG.md",
+    "README.md",
+    "docs/KNOWN_LIMITATIONS.md"
+  ],
+  "additional_packaging_metadata": [
+    "verification-economy/package.json",
+    "verification-economy/core-manifest.json"
+  ],
+  "canonical_router_equivalence_claimed": false,
+  "runtime_scope": "Historical earlier Windows Hidden; one source-bound3F18 WSLC/NVIDIA smoke; new full Corev2/L4b NOT_RUN; new builds require their own qualification",
+  "bundled_executable_or_private_evidence": false,
+  "unchanged_rust_and_embedded_runtime_python": true,
+  "helper_privacy_overlay": [
+    {
+      "path": "experiments/ai-execution-workspace/bootstrap-runtime.ps1",
+      "frozen_sha256": "63F7E043AA22ECBEC1173F510D47B4D326B419C506E290C6BE73D3AE8D8CA46F",
+      "published_sha256": "C6BFAB20D65AB16321CB639B06A27DAAF752AF29A13F84FE5B4899157A845F5F",
+      "change": "Personal guest home replaced by a neutral operator staging root; the private frozen ELF/resource layout is not certified for this variant."
+    },
+    {
+      "path": "experiments/ai-execution-workspace/upload-artifact.ps1",
+      "frozen_sha256": "9D58AA2BF1D354CF96DBD67F295179DED0F2BCFC1E699DCEF974210AC056600A",
+      "published_sha256": "663FA3D76CAEF83F6F0BC9358776A355EB6B12436295E70FBCA0D7AD1B53947F",
+      "change": "Personal guest home replaced by a neutral operator staging root; the private frozen ELF/resource layout is not certified for this variant."
+    },
+    {
+      "path": "experiments/ai-execution-workspace/test_bootstrap_remote_contract.py",
+      "frozen_sha256": "71973580A36F7F68036696F516AF9362ECD1452D1A0EA80E793CAAF4770FDA2D",
+      "published_sha256": "139032EE34F37D84022E0DCBE8098007D0BEB4D8AEB578B305D4628079180166",
+      "change": "Personal guest home replaced by a neutral operator staging root; the private frozen ELF/resource layout is not certified for this variant."
+    }
+  ],
+  "public_helper_runtime_qualification": "NOT_RUN; original private resource layout not certified for neutral staging paths"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@rust-makepad-toolkit/verification-economy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./core/index.mjs"
+}

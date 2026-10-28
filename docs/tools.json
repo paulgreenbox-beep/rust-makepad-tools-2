@@ -1,0 +1,527 @@
+{
+  "tools": [
+    {
+      "description": "Resolve exactly one top-level Windows window and allocate a stable opaque window_id.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "process_id": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "process_name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "title_contains": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "name": "windows_find_window"
+    },
+    {
+      "description": "Enumerate a filtered Microsoft UI Automation tree for a resolved window.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "type": "string"
+          },
+          "class_name": {
+            "type": "string"
+          },
+          "control_type": {
+            "type": "string"
+          },
+          "max_depth": {
+            "maximum": 256,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "max_elements": {
+            "maximum": 20000,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "name_contains": {
+            "type": "string"
+          },
+          "parent_element_id": {
+            "type": "string"
+          },
+          "view": {
+            "default": "control",
+            "enum": [
+              "control",
+              "raw"
+            ],
+            "type": "string"
+          },
+          "visible_only": {
+            "type": "boolean"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_get_control_tree"
+    },
+    {
+      "description": "Resolve exactly one accessible control using server-side filters and return element_id.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "type": "string"
+          },
+          "class_name": {
+            "type": "string"
+          },
+          "control_type": {
+            "type": "string"
+          },
+          "index": {
+            "description": "Zero-based secondary discriminator used only after all other filters.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "name_contains": {
+            "type": "string"
+          },
+          "parent_element_id": {
+            "type": "string"
+          },
+          "visible_only": {
+            "type": "boolean"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_find_control"
+    },
+    {
+      "description": "Invoke a visible ERP control by its app-owned semantic AutomationId.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "description": "Stable application-owned UI Automation identifier.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "automation_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_click_automation_id"
+    },
+    {
+      "description": "Set keyboard focus on a control resolved by its app-owned AutomationId.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "description": "Stable application-owned UI Automation identifier.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "automation_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_focus_automation_id"
+    },
+    {
+      "description": "Focus a control by AutomationId and inject text or a key chord.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "description": "Stable application-owned UI Automation identifier.",
+            "type": "string"
+          },
+          "keys": {
+            "description": "Unicode text or a supported key chord such as ENTER or CTRL+A.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "automation_id",
+          "keys"
+        ],
+        "type": "object"
+      },
+      "name": "windows_send_keys_to_automation_id"
+    },
+    {
+      "description": "Read current UIA state for a control resolved by its app-owned AutomationId.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "description": "Stable application-owned UI Automation identifier.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "automation_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_get_automation_id_state"
+    },
+    {
+      "description": "Set an editable ERP control value by its app-owned AutomationId through UI Automation ValuePattern.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "automation_id": {
+            "description": "Stable application-owned UI Automation identifier.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value to assign to the editable control.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "automation_id",
+          "value"
+        ],
+        "type": "object"
+      },
+      "name": "windows_set_value_to_automation_id"
+    },
+    {
+      "description": "Invoke, select, or click a previously resolved element_id without public coordinates.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "description": "Opaque Toolkit UIA element identity.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "element_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_click_element"
+    },
+    {
+      "description": "Set keyboard focus through UI Automation for a previously resolved element_id.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "description": "Opaque Toolkit UIA element identity.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "element_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_focus_element"
+    },
+    {
+      "description": "Set an editable control value through UI Automation ValuePattern without keyboard injection.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "description": "Opaque Toolkit UIA element identity.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Replacement value for a control that exposes UI Automation ValuePattern.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "element_id",
+          "value"
+        ],
+        "type": "object"
+      },
+      "name": "windows_set_value"
+    },
+    {
+      "description": "Focus a resolved window and inject a chord or Unicode text bound to that window_id.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "keys": {
+            "description": "Examples: CTRL+TAB, CTRL+SHIFT+TAB, CTRL+W, ENTER, or ordinary Unicode text.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "keys"
+        ],
+        "type": "object"
+      },
+      "name": "windows_send_keys"
+    },
+    {
+      "description": "Read current UIA state for a previously resolved element_id.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "element_id": {
+            "description": "Opaque Toolkit UIA element identity.",
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "element_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_get_element_state"
+    },
+    {
+      "description": "Read fresh HWND bounds, DPI, monitor, state, and live non-client frame targets without injecting input.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_inspect_window_interaction"
+    },
+    {
+      "description": "Resolve one fresh physical title, edge, or corner target through bounded WM_NCHITTEST; this tool does not inject input.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "target": {
+            "enum": [
+              "title",
+              "left",
+              "right",
+              "top",
+              "bottom",
+              "top_left",
+              "top_right",
+              "bottom_left",
+              "bottom_right"
+            ],
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "target"
+        ],
+        "type": "object"
+      },
+      "name": "windows_resolve_window_frame_target"
+    },
+    {
+      "description": "Programmatically minimize, maximize, or restore a resolved window for setup/recovery; it is not proof of physical title-bar UX.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "state": {
+            "enum": [
+              "normal",
+              "minimized",
+              "maximized"
+            ],
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id",
+          "state"
+        ],
+        "type": "object"
+      },
+      "name": "windows_set_window_state"
+    },
+    {
+      "description": "Deterministically resize and optionally move a resolved native window.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "width": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          },
+          "x": {
+            "type": "integer"
+          },
+          "y": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "window_id",
+          "width",
+          "height"
+        ],
+        "type": "object"
+      },
+      "name": "windows_set_window_bounds"
+    },
+    {
+      "description": "Capture the target native window to PNG and return artifact metadata.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "output_path": {
+            "type": "string"
+          },
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_capture_window"
+    },
+    {
+      "description": "Activate a resolved window and verify it became the foreground target.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "window_id": {
+            "description": "Opaque Toolkit window identity.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "window_id"
+        ],
+        "type": "object"
+      },
+      "name": "windows_focus_window"
+    },
+    {
+      "description": "Read the bounded structured evidence trail for this automation session.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "maximum": 4096,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "since_sequence": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [],
+        "type": "object"
+      },
+      "name": "windows_get_evidence"
+    }
+  ]
+}

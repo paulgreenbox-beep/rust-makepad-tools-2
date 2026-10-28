@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "project_id": "sample.linux-workspace",
+  "core_version": "1.0.0",
+  "global_policy_version": "1.0.0",
+  "evidence_version": 2,
+  "profile": "makepad-linux-wslc",
+  "note": "Operator policy 2026-10-23: 2048 MiB free host RAM admission guard. NVIDIA real evidence required; examples are NOT_RUN. Container limits unchanged."
+}

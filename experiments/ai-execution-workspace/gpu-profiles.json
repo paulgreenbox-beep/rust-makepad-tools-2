@@ -1,0 +1,8 @@
+{
+  "gpu_profiles": {
+    "cad_3d": {"vendor": "nvidia", "mode": "preferred", "fallback_profile": "ui_smoke"},
+    "heavy_viewer": {"vendor": "nvidia", "mode": "preferred", "fallback_profile": "ui_smoke"},
+    "ui_smoke": {"vendor": "auto", "mode": "auto"},
+    "gpu_nvidia_test": {"vendor": "nvidia", "mode": "required"}
+  }
+}

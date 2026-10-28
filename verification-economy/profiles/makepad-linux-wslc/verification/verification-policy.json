@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "policy_version": "1.0.0",
+  "levels": {
+    "L0": {
+      "title": "Pure/unit"
+    },
+    "L1": {
+      "title": "Owning component"
+    },
+    "L2": {
+      "title": "Integration"
+    },
+    "L3": {
+      "title": "Focused runtime/OS"
+    },
+    "L4a": {
+      "title": "Routine golden"
+    },
+    "L4b": {
+      "title": "Relevant composition"
+    },
+    "L5": {
+      "title": "Frozen smoke"
+    }
+  },
+  "periodic_regression": {
+    "interval": 5,
+    "state": "UNKNOWN_LEGACY_BASELINE",
+    "last_full_gui_milestone": null,
+    "milestones_since_last_full": null,
+    "next_recommended_full": "next accepted functional closure calibrates registered composition"
+  },
+  "milestone_history": [],
+  "feature_tags": [
+    "pure",
+    "launcher",
+    "verification-infrastructure",
+    "unexplained-flake",
+    "gpu",
+    "wslc",
+    "portability"
+  ],
+  "risk_triggers": [
+    {
+      "id": "gpu-backend",
+      "feature_tags": [
+        "gpu",
+        "wslc",
+        "portability"
+      ]
+    },
+    {
+      "id": "unexplained-gui-flake",
+      "feature_tags": [
+        "unexplained-flake"
+      ]
+    }
+  ],
+  "budgets": {
+    "focused_new_feature_gui": 4,
+    "routine_golden_gui": 4,
+    "real_file_gui": 2,
+    "frozen_artifact_smoke": 1,
+    "typical_gui_runs": 10
+  },
+  "test_registry": [
+    {
+      "id": "gpu-policy-unit",
+      "owner": "linux-workspace",
+      "level": "L0",
+      "workdir": ".",
+      "command": "node --test owning-contract.test.mjs"
+    },
+    {
+      "id": "launcher-contract",
+      "owner": "linux-workspace",
+      "level": "L2",
+      "workdir": ".",
+      "command": "node --test launcher-contract.test.mjs"
+    }
+  ],
+  "golden_scenarios": [],
+  "scenario_registry": [
+    {
+      "id": "bounded-nvidia-runtime",
+      "owner": "linux-workspace",
+      "level": "L4b",
+      "status": "RISK_TRIGGERED",
+      "stability": "stable",
+      "cost": "expensive",
+      "cost_factors": {
+        "process_window_launches": 1,
+        "captures": 1,
+        "desktop_exclusivity": false
+      },
+      "risk_tags": [
+        "gpu-backend"
+      ],
+      "features_proven": [
+        "gpu",
+        "wslc",
+        "portability"
+      ],
+      "lower_level_coverage": [
+        "gpu-policy-unit",
+        "launcher-contract"
+      ],
+      "run_when": [
+        "gpu",
+        "wslc",
+        "portability"
+      ],
+      "periodic": true,
+      "default_periodic": true,
+      "file": "verification/scenarios/bounded-nvidia-runtime.aiui.json",
+      "resources": [
+        "wslc_session",
+        "gpu"
+      ],
+      "last_passed_artifact": null,
+      "last_passed_date": null,
+      "expected_gpu": {
+        "vendor": "NVIDIA",
+        "mode": "required"
+      }
+    },
+    {
+      "id": "frozen-smoke",
+      "owner": "linux-workspace",
+      "level": "L5",
+      "status": "NEW_CRITICAL",
+      "stability": "stable",
+      "cost": "expensive",
+      "cost_factors": {
+        "process_window_launches": 1,
+        "captures": 1,
+        "desktop_exclusivity": false
+      },
+      "risk_tags": [
+        "gpu-backend"
+      ],
+      "features_proven": [
+        "gpu",
+        "wslc",
+        "portability"
+      ],
+      "lower_level_coverage": [
+        "gpu-policy-unit",
+        "launcher-contract"
+      ],
+      "run_when": [
+        "gpu",
+        "wslc",
+        "portability"
+      ],
+      "periodic": false,
+      "default_periodic": false,
+      "file": "verification/scenarios/frozen-smoke.aiui.json",
+      "resources": [
+        "wslc_session",
+        "gpu"
+      ],
+      "last_passed_artifact": null,
+      "last_passed_date": null,
+      "expected_gpu": {
+        "vendor": "NVIDIA",
+        "mode": "required"
+      }
+    }
+  ],
+  "change_impact": [
+    {
+      "id": "pure",
+      "paths": [
+        "src/pure/*"
+      ],
+      "modules": [
+        "pure"
+      ],
+      "tests": [
+        "gpu-policy-unit"
+      ],
+      "feature_tags": [
+        "pure"
+      ],
+      "risk_triggers": []
+    },
+    {
+      "id": "runtime",
+      "paths": [
+        "experiments/ai-execution-workspace/gpu_policy.py"
+      ],
+      "modules": [
+        "linux-workspace"
+      ],
+      "tests": [
+        "gpu-policy-unit",
+        "launcher-contract"
+      ],
+      "feature_tags": [
+        "gpu",
+        "wslc",
+        "portability"
+      ],
+      "risk_triggers": [
+        "gpu-backend"
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "paths": [
+        "verification/*"
+      ],
+      "modules": [
+        "verification-infrastructure"
+      ],
+      "tests": [
+        "gpu-policy-unit"
+      ],
+      "feature_tags": [
+        "verification-infrastructure"
+      ],
+      "risk_triggers": []
+    }
+  ],
+  "ownership_rules": {
+    "manifest_is_source_of_truth": true,
+    "agent_requires_plan_before_gui": true,
+    "no_parallel_plugin": true,
+    "no_unit_tests_deleted_for_economy": true,
+    "assertion_count_not_optimized": true,
+    "integration_boundary_not_skipped": true,
+    "new_interactions_require_real_user_gui": true,
+    "scenario_reuse_requires_exact_artifact_and_source_and_complete_pass": true,
+    "unknown_impact_requires_review": true,
+    "scenario_recipe_validation_is_not_gui_acceptance": true
+  },
+  "lifecycle": {
+    "quarantine_is_pass": false
+  },
+  "retry_policy": {
+    "outcomes": [
+      "PASS",
+      "FAIL_PRODUCT",
+      "FAIL_TEST_INFRA",
+      "BLOCKED_ENVIRONMENT",
+      "NOT_RUN"
+    ]
+  },
+  "artifact_smoke": {
+    "level": "L5",
+    "count": 1,
+    "after_source_freeze": true,
+    "after_quality_gates": true,
+    "after_required_gui": true,
+    "exact_bytes_required": true,
+    "runtime_health_required": true
+  },
+  "exceptions": []
+}

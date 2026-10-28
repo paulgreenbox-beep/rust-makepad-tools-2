@@ -1,0 +1,8 @@
+[package]
+name = "rudra-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Typed runtime-local entity identities and owner-scoped registries"
+
+[dependencies]

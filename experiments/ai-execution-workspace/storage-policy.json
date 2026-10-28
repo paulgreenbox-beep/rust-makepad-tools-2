@@ -1,0 +1,23 @@
+{
+  "schema": "toolkit-wslc-storage-policy-v1.1",
+  "policy_id": "TOOLKIT_WSLC_STORAGE_POLICY_V1_1",
+  "version": "1.1",
+  "storage_enforcement": "monitored_soft_limit",
+  "hard_quota_enforced": false,
+  "approved_soft_profile": "focus_trace71",
+  "max_scenario_growth_bytes": 1073741824,
+  "max_single_growth_bytes": 536870912,
+  "max_host_evidence_bytes": 268435456,
+  "max_capture_count": 4,
+  "container_storage_max_bytes": 120000000000,
+  "host_ssd_reserve_bytes": 10000000000,
+  "warning_bytes": 96000000000,
+  "cleanup_bytes": 108000000000,
+  "stop_growth_bytes": 114000000000,
+  "require_hard_quota_before_create": false,
+  "eager_allocation": false,
+  "delete_foreign_resources": false,
+  "preserve_core_references": true,
+  "allowed_staging_files": ["ai-workspace-fixture"],
+  "scope": "Software ceiling for the exact owned writable layer, including guest temporary artifacts. No external writable mounts. Host staging, shared image/cache/VHDX and host SSD accounted separately; not a filesystem hard quota."
+}

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "sample-frozen-smoke-not-run",
+  "application": {
+    "command": "bin/fixture-app"
+  },
+  "setup": [
+    {
+      "op": "session.open",
+      "save_session_as": "app"
+    }
+  ],
+  "steps": [
+    {
+      "op": "get_runtime_health",
+      "session": "app"
+    },
+    {
+      "op": "get_runtime_stderr",
+      "session": "app"
+    }
+  ],
+  "teardown": [
+    {
+      "op": "session.close",
+      "session": "app"
+    }
+  ],
+  "options": {
+    "stop_on_error": true,
+    "evidence_on_failure": true
+  }
+}

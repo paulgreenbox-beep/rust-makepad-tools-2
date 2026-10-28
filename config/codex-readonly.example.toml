@@ -1,0 +1,8 @@
+[mcp_servers.makepad-tools-v02]
+command = "C:/tools/rust-makepad-tools/target/release/toolkit-windows-gui-mcp.exe"
+args = []
+enabled_tools = ["windows_get_control_tree", "windows_get_element_state", "windows_get_automation_id_state", "windows_capture_window", "windows_get_evidence"]
+default_tools_approval_mode = "prompt"
+# Add the two trusted routing env values only after operator review/hash binding.
+# TOOLKIT_MCP_BACKEND_CONFIG = absolute path to the final trusted routing JSON.
+# TOOLKIT_MCP_BACKEND_CONFIG_SHA256 = SHA256 of its actual final bytes.

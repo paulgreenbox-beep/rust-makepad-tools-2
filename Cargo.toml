@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = ["crates/rudra-runtime", "crates/toolkit-windows-automation"]
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+version = "0.2.0"
+
+[workspace.dependencies]
+rudra-runtime = { path = "crates/rudra-runtime" }
+
+[workspace.metadata.makepad-runtime]
+repository = "https://github.com/makepad/makepad"
+revision = "71c9ddcbb9c01dd208f99621fdd71024a5d35c65"
+relationship = "External approved application runtime; MCP host does not link Makepad"

@@ -1,0 +1,27 @@
+name: source-contracts
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  windows-source:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      CARGO_BUILD_JOBS: '1'
+      CARGO_INCREMENTAL: '0'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Exact Rust toolchain
+        run: rustup toolchain install 1.97.1 --profile minimal
+      - run: cargo +1.97.1 fetch --locked
+      - run: cargo +1.97.1 test --locked --offline -j 1 -p rudra-runtime
+      - run: cargo +1.97.1 test --locked --offline -j 1 -p toolkit-windows-automation --lib --features experimental-makepad-remote
+  core-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: node --test verification-economy/tests/core.test.mjs verification-economy/tests/identity-capture.test.mjs
