@@ -304,6 +304,9 @@ def _registry_lease_count(value,session_id):
                 and type(state) is str and state in ARBITER_STATES
                 and type(owner) is dict,bad)
         seen.add(rid)
+        require(not (state in ('QUIESCING','BACKGROUND_RUNNING','VERIFYING','COMPLETED',
+                               'CANCELLED','TIMED_OUT','OWNER_LOST','RECOVERING',
+                               'RESOURCE_QUARANTINED') and generation<2),bad)
         require(all(type(owner.get(k)) is str and bool(owner[k].strip())
                     for k in ('worker_id','job_id','attempt_id','session_id')),bad)
         require(type(owner.get('pid')) is int and owner['pid']>0
@@ -325,6 +328,7 @@ def _registry_lease_count(value,session_id):
                             and type(details.get('process_birth')) is str
                             and details['process_birth'].isdigit()
                             and int(details['process_birth'])>0,bad)
+        require(len({json.dumps(r,sort_keys=True) for r in entry['resources']})==len(entry['resources']),bad)
         acquired=entry.get('acquired_at');reservations=entry.get('active_reservations',0)
         clipboard=entry.get('clipboard_pending',False)
         queued=entry.get('queued_at');deadline=entry.get('deadline');heartbeat=entry.get('heartbeat')
@@ -334,7 +338,8 @@ def _registry_lease_count(value,session_id):
                 and type(clipboard) is bool and type(entry.get('logical_background',False)) is bool
                 and (acquired is None or (type(acquired) is int and queued<=acquired<deadline
                                           and acquired<=heartbeat))
-                and (acquired is not None or (reservations==0 and not clipboard)),bad)
+                and (acquired is not None or (reservations==0 and not clipboard))
+                and (not clipboard or 'SystemClipboard' in entry['resources']),bad)
         require(not (state in ('LEASED','GUI_ACTIVE','QUIESCING','VERIFYING',
                                'RECOVERING','RESOURCE_QUARANTINED') and acquired is None)
                 and not (state in ('QUEUED','WAITING_RESOURCES','RESUME_QUEUED',
