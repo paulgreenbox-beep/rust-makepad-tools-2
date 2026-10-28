@@ -855,11 +855,15 @@
     ".github/workflows/ci.yml",
     "CHANGELOG.md",
     "README.md",
-    "docs/KNOWN_LIMITATIONS.md"
+    "docs/KNOWN_LIMITATIONS.md",
+    "docs/WINDOWS_WSLC.md",
+    "docs/STORAGE_POLICY_V1_1.md"
   ],
   "additional_packaging_metadata": [
     "verification-economy/package.json",
-    "verification-economy/core-manifest.json"
+    "verification-economy/core-manifest.json",
+    "docs/SOURCE_PROVENANCE.json",
+    "PUBLIC_FILE_MANIFEST.json"
   ],
   "canonical_router_equivalence_claimed": false,
   "runtime_scope": "Historical earlier Windows Hidden; one source-bound3F18 WSLC/NVIDIA smoke; new full Corev2/L4b NOT_RUN; new builds require their own qualification",
