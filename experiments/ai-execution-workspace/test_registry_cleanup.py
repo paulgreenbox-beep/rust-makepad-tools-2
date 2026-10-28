@@ -76,6 +76,26 @@ class RegistryCleanupTests(unittest.TestCase):
             return identity if calls[0]!=4 else (identity[0],identity[1]+1,*identity[2:])
         with patch.object(storage,'_registry_identity',side_effect=changed):
             with self.assertRaises(storage.StorageRefusal):self.observe()
+    @unittest.skipIf(os.name=='nt','Windows denies this foreign replacement without FILE_SHARE_DELETE')
+    def test_actual_foreign_replacement_during_fd_read_refuses(self):
+        self.write(registry())
+        original=os.fstat;calls=[0]
+        def replaced(fd):
+            calls[0]+=1
+            if calls[0]==2:
+                other=self.path.with_suffix('.replacement')
+                other.write_text(json.dumps(registry()),encoding='utf-8')
+                os.replace(other,self.path)
+            return original(fd)
+        with patch.object(storage.os,'fstat',side_effect=replaced):
+            with self.assertRaises(storage.StorageRefusal):self.observe()
+    def test_nonfinite_and_invalid_resource_refuse(self):
+        self.path.write_text('{"schema_version":1,"next_id":2,"entries":[],"events":[],"extra":NaN}')
+        with self.assertRaises(storage.StorageRefusal):self.observe()
+        value=registry()
+        value['entries'][0]['resources']=['UnknownDesktopResource']
+        self.write(value)
+        with self.assertRaises(storage.StorageRefusal):self.observe()
     def test_missing_file_never_means_zero_leases(self):
         with self.assertRaises(storage.StorageRefusal):self.observe()
     @unittest.skipUnless(os.name=='nt','native mutex exists only on Windows')
