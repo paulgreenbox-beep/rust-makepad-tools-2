@@ -50,7 +50,7 @@ class RegistryCleanupTests(unittest.TestCase):
                 self.assertEqual(self.observe(),1)
     def test_terminal_state_with_retained_grant_never_returns_zero(self):
         self.write(registry([entry(1,'COMPLETED',acquired=20)]))
-        self.assertEqual(self.observe(),1)
+        with self.assertRaises(storage.StorageRefusal):self.observe()
     def test_duplicate_request_ids_and_invalid_generation_refuse(self):
         for rows in ([entry(1),entry(1)],[entry(1,generation=0)]):
             with self.subTest(rows=rows):
