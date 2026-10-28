@@ -327,8 +327,36 @@ def _registry_lease_count(value,session_id):
         last=event['timestamp']
     return active
 
+from contextlib import contextmanager
+@contextmanager
+def _arbiter_registry_lock(session):
+    """Same named mutex and bounded wait as native DesktopArbiter::transaction."""
+    import ctypes
+    from ctypes import wintypes
+    kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+    kernel.CreateMutexW.argtypes=[ctypes.c_void_p,wintypes.BOOL,wintypes.LPCWSTR]
+    kernel.CreateMutexW.restype=wintypes.HANDLE
+    kernel.WaitForSingleObject.argtypes=[wintypes.HANDLE,wintypes.DWORD]
+    kernel.WaitForSingleObject.restype=wintypes.DWORD
+    kernel.ReleaseMutex.argtypes=[wintypes.HANDLE]
+    kernel.ReleaseMutex.restype=wintypes.BOOL
+    kernel.CloseHandle.argtypes=[wintypes.HANDLE]
+    kernel.CloseHandle.restype=wintypes.BOOL
+    handle=kernel.CreateMutexW(None,False,f'Local\\MakepadToolkitDesktopArbiterV1-{session}')
+    require(bool(handle),'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    acquired=False
+    try:
+        status=kernel.WaitForSingleObject(handle,2000)
+        # WAIT_ABANDONED requires native owner recovery; never infer leases=0.
+        require(status==0,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+        acquired=True
+        yield
+    finally:
+        if acquired:kernel.ReleaseMutex(handle)
+        kernel.CloseHandle(handle)
+
 def active_session_leases(session_id):
-    """Read the existing Arbiter registry, never create/recover/modify it."""
+    """Read the existing Arbiter registry; no recovery, mutation or second owner."""
     require(os.name=='nt','STORAGE_HOST_PLATFORM_UNSUPPORTED')
     import ctypes,uuid
     from ctypes import wintypes
@@ -337,15 +365,19 @@ def active_session_leases(session_id):
     path=ctypes.c_wchar_p();sid=wintypes.DWORD()
     shell.SHGetKnownFolderPath.argtypes=[ctypes.c_void_p,wintypes.DWORD,wintypes.HANDLE,ctypes.POINTER(ctypes.c_wchar_p)]
     shell.SHGetKnownFolderPath.restype=ctypes.c_long;ole.CoTaskMemFree.argtypes=[ctypes.c_void_p]
-    require(shell.SHGetKnownFolderPath(ctypes.byref(guid),0,None,ctypes.byref(path))>=0,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    require(shell.SHGetKnownFolderPath(ctypes.byref(guid),0,None,ctypes.byref(path))>=0,
+            'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
     try:local=Path(path.value)
     finally:ole.CoTaskMemFree(ctypes.cast(path,ctypes.c_void_p))
-    require(bool(kernel.ProcessIdToSessionId(os.getpid(),ctypes.byref(sid))),'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
-    registry=local/'MakepadToolkit/desktop-arbiter-v1'/f'session-{sid.value}'/'resource-registry.json'
-    value=read(registry)
-    require(isinstance(value.get('entries'),list),'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
-    return sum(e.get('state') not in ('COMPLETED','CANCELLED','TIMED_OUT') for e in value['entries']
-               if e.get('owner',{}).get('session_id')==session_id)
+    kernel.ProcessIdToSessionId.argtypes=[wintypes.DWORD,ctypes.POINTER(wintypes.DWORD)]
+    kernel.ProcessIdToSessionId.restype=wintypes.BOOL
+    require(bool(kernel.ProcessIdToSessionId(os.getpid(),ctypes.byref(sid))),
+            'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    registry=safe_path(local/'MakepadToolkit/desktop-arbiter-v1'/f'session-{sid.value}'/'resource-registry.json',local)
+    with _arbiter_registry_lock(sid.value):
+        require(not (registry.parent/'abandoned-recovery-required.json').exists(),
+                'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+        return _registry_lease_count(_read_registry_snapshot(registry),session_id)
 
 def remove_exact_file(path,expected,expected_sha):
     """Windows delete-by-handle, denying concurrent write/rename/delete."""
