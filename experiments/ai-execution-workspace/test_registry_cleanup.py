@@ -11,8 +11,8 @@ spec=importlib.util.spec_from_file_location('registry_storage_policy',Path(__fil
 storage=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(storage)
 
-def entry(rid,state='COMPLETED',session='mine',acquired=None):
-    return dict(request_id=rid,generation=2,owner=dict(worker_id='worker',job_id='job',
+def entry(rid,state='COMPLETED',session='mine',acquired=None,generation=2):
+    return dict(request_id=rid,generation=generation,owner=dict(worker_id='worker',job_id='job',
         attempt_id='attempt',session_id=session,pid=100,process_birth='123456'),
         resources=['DesktopInput'],state=state,clipboard_pending=False,active_reservations=0,
         logical_background=False,queued_at=10,acquired_at=acquired,deadline=100,heartbeat=50)
