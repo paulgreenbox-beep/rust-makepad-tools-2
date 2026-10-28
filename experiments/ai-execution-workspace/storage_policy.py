@@ -281,7 +281,8 @@ def _read_registry_snapshot(path):
     except OSError:
         raise StorageRefusal('STORAGE_LEASE_OBSERVATION_UNAVAILABLE') from None
     try:
-        return json.loads(raw.decode('utf-8'),object_pairs_hook=_registry_unique_pairs)
+        return json.loads(raw.decode('utf-8'),object_pairs_hook=_registry_unique_pairs,
+                          parse_constant=lambda _:require(False,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE'))
     except (ValueError,UnicodeError,TypeError):
         raise StorageRefusal('STORAGE_LEASE_OBSERVATION_UNAVAILABLE') from None
 
