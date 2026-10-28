@@ -16,6 +16,7 @@ jobs:
       - run: cargo +1.97.1 fetch --locked
       - run: cargo +1.97.1 test --locked --offline -j 1 -p rudra-runtime
       - run: cargo +1.97.1 test --locked --offline -j 1 -p toolkit-windows-automation --lib --features experimental-makepad-remote
+      - run: python -m unittest discover -s experiments/ai-execution-workspace -p test_registry_cleanup.py
   core-source:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -25,3 +26,4 @@ jobs:
         with:
           node-version: '22'
       - run: node --test verification-economy/tests/core.test.mjs verification-economy/tests/identity-capture.test.mjs
+      - run: python3 -m unittest discover -s experiments/ai-execution-workspace -p test_registry_cleanup.py
