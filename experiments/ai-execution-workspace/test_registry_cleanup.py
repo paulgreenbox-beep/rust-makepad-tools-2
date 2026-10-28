@@ -73,7 +73,7 @@ class RegistryCleanupTests(unittest.TestCase):
         def changed(info):
             calls[0]+=1
             identity=original(info)
-            return identity if calls[0]<3 else (identity[0],identity[1]+1,*identity[2:])
+            return identity if calls[0]!=4 else (identity[0],identity[1]+1,*identity[2:])
         with patch.object(storage,'_registry_identity',side_effect=changed):
             with self.assertRaises(storage.StorageRefusal):self.observe()
     def test_missing_file_never_means_zero_leases(self):
