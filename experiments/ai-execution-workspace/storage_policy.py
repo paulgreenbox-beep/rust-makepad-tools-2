@@ -235,8 +235,159 @@ def ensure_host_reserve(incoming_bytes):
     require(free-incoming_bytes>=RESERVE,'HOST_STORAGE_RESERVE_REFUSED' if soft_mode(policy()) else 'HOST_SSD_RESERVE_VIOLATED')
     return {'host_free_bytes':free,'reserved_bytes':RESERVE,'incoming_bytes':incoming_bytes}
 
+# Match the native Arbiter's 16 MiB persistence bound, not the 1 MiB
+# evidence-receipt limit. All reads happen under its existing named mutex.
+ARBITER_REGISTRY_CAP=16*1024*1024
+ARBITER_TERMINAL={'COMPLETED','CANCELLED','TIMED_OUT'}
+ARBITER_STATES={'QUEUED','WAITING_RESOURCES','LEASED','GUI_ACTIVE','QUIESCING',
+    'BACKGROUND_RUNNING','RESUME_QUEUED','VERIFYING','COMPLETED','CANCELLED',
+    'TIMED_OUT','OWNER_LOST','RECOVERING','RESOURCE_QUARANTINED','FAIL_TEST_INFRA'}
+
+def _registry_identity(info):
+    return (info.st_dev,info.st_ino,info.st_size,info.st_mtime_ns,info.st_ctime_ns,info.st_nlink)
+
+def _registry_unique_pairs(pairs):
+    value={}
+    for key,item in pairs:
+        require(key not in value,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+        value[key]=item
+    return value
+
+def _read_registry_snapshot(path):
+    """Bounded full FD read, second-pass hash and path/FD identity join."""
+    path=Path(path)
+    try:
+        with path.open('rb') as stream:
+            before=os.fstat(stream.fileno())
+            require(before.st_nlink==1,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+            require(before.st_size<=ARBITER_REGISTRY_CAP,'STORAGE_RECEIPT_TOO_LARGE')
+            require(_registry_identity(before)==_registry_identity(path.stat()),
+                    'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+            raw=bytearray()
+            while len(raw)<=ARBITER_REGISTRY_CAP:
+                chunk=stream.read(min(65536,ARBITER_REGISTRY_CAP+1-len(raw)))
+                if not chunk:break
+                raw.extend(chunk)
+            require(len(raw)<=ARBITER_REGISTRY_CAP,'STORAGE_RECEIPT_TOO_LARGE')
+            require(len(raw)==before.st_size,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+            expected=hashlib.sha256(raw).digest()
+            stream.seek(0);check=hashlib.sha256()
+            for chunk in iter(lambda:stream.read(65536),b''):check.update(chunk)
+            after=os.fstat(stream.fileno())
+            safe_path(path,path.parent)
+            require(_registry_identity(before)==_registry_identity(after)
+                    and _registry_identity(after)==_registry_identity(path.stat())
+                    and check.digest()==expected,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    except OSError:
+        raise StorageRefusal('STORAGE_LEASE_OBSERVATION_UNAVAILABLE') from None
+    try:
+        return json.loads(raw.decode('utf-8'),object_pairs_hook=_registry_unique_pairs,
+                          parse_constant=lambda _:require(False,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE'))
+    except (ValueError,UnicodeError,TypeError):
+        raise StorageRefusal('STORAGE_LEASE_OBSERVATION_UNAVAILABLE') from None
+
+def _registry_lease_count(value,session_id):
+    """Conservative filter, not a second Arbiter persistence validator."""
+    bad='STORAGE_LEASE_OBSERVATION_UNAVAILABLE'
+    require(type(value) is dict and type(session_id) is str and bool(session_id),bad)
+    require(type(value.get('schema_version')) is int and value['schema_version']==1,bad)
+    next_id=value.get('next_id');entries=value.get('entries');events=value.get('events')
+    require(type(next_id) is int and next_id>0 and type(entries) is list
+            and len(entries)<=4096 and type(events) is list and len(events)<=10000,bad)
+    seen=set();active=0
+    for entry in entries:
+        require(type(entry) is dict,bad)
+        rid=entry.get('request_id');generation=entry.get('generation')
+        owner=entry.get('owner');state=entry.get('state')
+        require(type(rid) is int and 0<rid<next_id and rid not in seen
+                and type(generation) is int and generation>0
+                and type(state) is str and state in ARBITER_STATES
+                and type(owner) is dict,bad)
+        seen.add(rid)
+        require(not (state in ('QUIESCING','BACKGROUND_RUNNING','VERIFYING','COMPLETED',
+                               'CANCELLED','TIMED_OUT','OWNER_LOST','RECOVERING',
+                               'RESOURCE_QUARANTINED') and generation<2),bad)
+        require(all(type(owner.get(k)) is str and bool(owner[k].strip())
+                    for k in ('worker_id','job_id','attempt_id','session_id')),bad)
+        require(type(owner.get('pid')) is int and owner['pid']>0
+                and type(owner.get('process_birth')) is str
+                and owner['process_birth'].isdigit() and int(owner['process_birth'])>0,bad)
+        require(type(entry.get('resources')) is list and bool(entry['resources']),bad)
+        for resource in entry['resources']:
+            if type(resource) is str:
+                require(resource in ('DesktopInput','SystemClipboard','BackgroundCompute'),bad)
+            else:
+                require(type(resource) is dict and len(resource)==1,bad)
+                kind,details=next(iter(resource.items()))
+                require(kind in ('WindowMutation','SessionSemantic') and type(details) is dict,bad)
+                if kind=='SessionSemantic':
+                    require(type(details.get('session_id')) is str and bool(details['session_id']),bad)
+                else:
+                    require(type(details.get('hwnd')) is int and details['hwnd']>0
+                            and type(details.get('pid')) is int and details['pid']>0
+                            and type(details.get('process_birth')) is str
+                            and details['process_birth'].isdigit()
+                            and int(details['process_birth'])>0,bad)
+        require(len({json.dumps(r,sort_keys=True) for r in entry['resources']})==len(entry['resources']),bad)
+        acquired=entry.get('acquired_at');reservations=entry.get('active_reservations',0)
+        clipboard=entry.get('clipboard_pending',False)
+        queued=entry.get('queued_at');deadline=entry.get('deadline');heartbeat=entry.get('heartbeat')
+        require(all(type(v) is int and v>=0 for v in (queued,deadline,heartbeat))
+                and deadline>queued and heartbeat>=queued
+                and type(reservations) is int and 0<=reservations<=256
+                and type(clipboard) is bool and type(entry.get('logical_background',False)) is bool
+                and (acquired is None or (type(acquired) is int and queued<=acquired<deadline
+                                          and acquired<=heartbeat))
+                and (acquired is not None or (reservations==0 and not clipboard))
+                and (not clipboard or 'SystemClipboard' in entry['resources']),bad)
+        require(not (state in ('LEASED','GUI_ACTIVE','QUIESCING','VERIFYING',
+                               'RECOVERING','RESOURCE_QUARANTINED') and acquired is None)
+                and not (state in ('QUEUED','WAITING_RESOURCES','RESUME_QUEUED',
+                                   'BACKGROUND_RUNNING','COMPLETED','CANCELLED',
+                                   'TIMED_OUT','OWNER_LOST') and acquired is not None),bad)
+        if owner['session_id']==session_id and (
+            state not in ARBITER_TERMINAL or acquired is not None or reservations or clipboard
+        ):active+=1
+    last=-1
+    for event in events:
+        require(type(event) is dict and type(event.get('timestamp')) is int
+                and event['timestamp']>=last and type(event.get('request')) is int
+                and 0<event['request']<next_id and type(event.get('state')) is str
+                and event['state'] in ARBITER_STATES
+                and type(event.get('reason')) is str and bool(event['reason'].strip()),bad)
+        last=event['timestamp']
+    return active
+
+from contextlib import contextmanager
+@contextmanager
+def _arbiter_registry_lock(session):
+    """Same named mutex and bounded wait as native DesktopArbiter::transaction."""
+    import ctypes
+    from ctypes import wintypes
+    kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+    kernel.CreateMutexW.argtypes=[ctypes.c_void_p,wintypes.BOOL,wintypes.LPCWSTR]
+    kernel.CreateMutexW.restype=wintypes.HANDLE
+    kernel.WaitForSingleObject.argtypes=[wintypes.HANDLE,wintypes.DWORD]
+    kernel.WaitForSingleObject.restype=wintypes.DWORD
+    kernel.ReleaseMutex.argtypes=[wintypes.HANDLE]
+    kernel.ReleaseMutex.restype=wintypes.BOOL
+    kernel.CloseHandle.argtypes=[wintypes.HANDLE]
+    kernel.CloseHandle.restype=wintypes.BOOL
+    handle=kernel.CreateMutexW(None,False,f'Local\\MakepadToolkitDesktopArbiterV1-{session}')
+    require(bool(handle),'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    acquired=False
+    try:
+        status=kernel.WaitForSingleObject(handle,2000)
+        # WAIT_ABANDONED requires native owner recovery; never infer leases=0.
+        require(status==0,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+        acquired=True
+        yield
+    finally:
+        if acquired:kernel.ReleaseMutex(handle)
+        kernel.CloseHandle(handle)
+
 def active_session_leases(session_id):
-    """Read the existing Arbiter registry, never create/recover/modify it."""
+    """Read the existing Arbiter registry; no recovery, mutation or second owner."""
     require(os.name=='nt','STORAGE_HOST_PLATFORM_UNSUPPORTED')
     import ctypes,uuid
     from ctypes import wintypes
@@ -245,15 +396,19 @@ def active_session_leases(session_id):
     path=ctypes.c_wchar_p();sid=wintypes.DWORD()
     shell.SHGetKnownFolderPath.argtypes=[ctypes.c_void_p,wintypes.DWORD,wintypes.HANDLE,ctypes.POINTER(ctypes.c_wchar_p)]
     shell.SHGetKnownFolderPath.restype=ctypes.c_long;ole.CoTaskMemFree.argtypes=[ctypes.c_void_p]
-    require(shell.SHGetKnownFolderPath(ctypes.byref(guid),0,None,ctypes.byref(path))>=0,'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    require(shell.SHGetKnownFolderPath(ctypes.byref(guid),0,None,ctypes.byref(path))>=0,
+            'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
     try:local=Path(path.value)
     finally:ole.CoTaskMemFree(ctypes.cast(path,ctypes.c_void_p))
-    require(bool(kernel.ProcessIdToSessionId(os.getpid(),ctypes.byref(sid))),'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
-    registry=local/'MakepadToolkit/desktop-arbiter-v1'/f'session-{sid.value}'/'resource-registry.json'
-    value=read(registry)
-    require(isinstance(value.get('entries'),list),'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
-    return sum(e.get('state') not in ('COMPLETED','CANCELLED','TIMED_OUT') for e in value['entries']
-               if e.get('owner',{}).get('session_id')==session_id)
+    kernel.ProcessIdToSessionId.argtypes=[wintypes.DWORD,ctypes.POINTER(wintypes.DWORD)]
+    kernel.ProcessIdToSessionId.restype=wintypes.BOOL
+    require(bool(kernel.ProcessIdToSessionId(os.getpid(),ctypes.byref(sid))),
+            'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+    registry=safe_path(local/'MakepadToolkit/desktop-arbiter-v1'/f'session-{sid.value}'/'resource-registry.json',local)
+    with _arbiter_registry_lock(sid.value):
+        require(not (registry.parent/'abandoned-recovery-required.json').exists(),
+                'STORAGE_LEASE_OBSERVATION_UNAVAILABLE')
+        return _registry_lease_count(_read_registry_snapshot(registry),session_id)
 
 def remove_exact_file(path,expected,expected_sha):
     """Windows delete-by-handle, denying concurrent write/rename/delete."""
