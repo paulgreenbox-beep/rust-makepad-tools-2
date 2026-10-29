@@ -16,6 +16,14 @@ jobs:
       - run: cargo +1.97.1 fetch --locked
       - run: cargo +1.97.1 test --locked --offline -j 1 -p rudra-runtime
       - run: cargo +1.97.1 test --locked --offline -j 1 -p toolkit-windows-automation --lib --features experimental-makepad-remote
+  windows-owned-lifecycle:
+    runs-on: windows-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Native Job normal exit and containment regressions (no GUI or WSL)
+        working-directory: experiments/ai-execution-workspace
+        run: python -B -m unittest -v test_owned_driver_natural_exit test_owned_driver_contract.OwnedDriverContractTests
   core-source:
     runs-on: ubuntu-latest
     timeout-minutes: 5
